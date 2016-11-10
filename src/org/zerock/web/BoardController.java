@@ -17,7 +17,6 @@ public class BoardController extends AbstractController {
 	private static final long serialVersionUID = 1L;
 	BoardDAO dao = new BoardDAOImpl();
 
-	// GET����̸� void�ص� ��
 	@RequestMapping("/list")
 	public void list(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("BoardController list called");

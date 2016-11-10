@@ -9,19 +9,24 @@
 </head>
 <body>
 	<style>
+.list li {
+	list-style: none;
+}
+
 .paging li {
 	list-style: none;
 	float: left;
 	margin: 0.2em;
-	border: 1px solid black;
+	border: 1px dotted gray;
+	border-radius: 5px;
 }
 
 .paging .prev {
-	background-color: green;
+	background-color: pink;
 }
 
 .paging .next {
-	background-color: green;
+	background-color: pink;
 }
 </style>
 
@@ -45,6 +50,7 @@
 		<c:forEach items="${list}" var="vo">
 			<li>${vo.bno}<a href='${vo.bno}'> ${vo.title}</a> ${vo.regdate}
 			</li>
+			<br>
 		</c:forEach>
 	</ul>
 
