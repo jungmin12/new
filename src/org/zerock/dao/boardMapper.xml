@@ -17,14 +17,18 @@
 		</if>
 
 	</sql>
-		<select id="delete" resultType="org.zerock.domain.BoardVO">
-		delete from tbl_board where bno =
-		#{bno}
-	</select>
+	
+		<insert id="create">
+		insert into tbl_board(title, content, writer)
+		values(#{title},#{content},#{writer});
+	</insert>
+	
+		<delete id="delete" >
+		delete from tbl_board where bno = #{bno}
+	</delete>
 
 	<select id="read" resultType="org.zerock.domain.BoardVO">
-		select * from tbl_board where bno =
-		#{bno}
+		select * from tbl_board where bno = #{bno}
 	</select>
 
 	<select id="list" resultType="org.zerock.domain.BoardVO">

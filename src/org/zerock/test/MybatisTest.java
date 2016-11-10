@@ -9,8 +9,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
+import org.zerock.dao.MyBatisFactory;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.ReplyVO;
 
 public class MybatisTest {
 
@@ -57,22 +59,21 @@ public class MybatisTest {
 	public void testList1() {
 		BoardVO vo = new BoardVO();
 		try (SqlSession session = factory.openSession();) {
-			vo = session.selectOne("org.zerock.dao.BoardMapper.view",300);
+			vo = session.selectOne("org.zerock.dao.BoardMapper.view", 300);
 			System.out.println(vo);
 		}
 
 	}
-	
 
 	@Test
 	public void testSearch() {
-		Criteria cri = new Criteria(1,"t","1000");
-		
+		Criteria cri = new Criteria(1, "t", "1000");
+
 		SqlSession session = factory.openSession();
 		try {
 			List<BoardVO> now = session.selectList("org.zerock.dao.BoardMapper.listSearch", cri);
 			System.out.println(now);
-			
+
 		} finally {
 			session.close();
 		}
@@ -80,16 +81,44 @@ public class MybatisTest {
 
 	@Test
 	public void testDelete() {
-		BoardVO vo = new BoardVO();
 		
-		SqlSession session = factory.openSession();
-		try {
-			session.selectList("org.zerock.dao.BoardMapper.delete",1);
-			
-			
-		} finally {
-			session.close();
+		try (SqlSession session = factory.openSession();) {
+		 session.selectOne("org.zerock.dao.BoardMapper.delete", 12);
 		}
+
+	}
+	@Test
+	public void testCreate() {
+		BoardVO vo = new BoardVO();
+		vo.setTitle("dskdfioe");
+		vo.setContent("contentttttt");		
+		vo.setWriter("writerrrrrrr");
+		
+		System.out.println(vo);
+		
+		try (SqlSession session = factory.openSession();) {
+			session.selectOne("org.zerock.dao.BoardMapper.create", vo);
+		}
+		
 	}
 	
+	@Test
+	public void testRCreate() {
+		ReplyVO vo = new ReplyVO();
+		vo.setBno(1376220);
+		vo.setReply("야호");	
+		vo.setReplyer("다은");
+		
+		System.out.println(vo);
+		
+		try (SqlSession session = factory.openSession();) {
+			session.selectOne("org.zerock.dao.ReplyMapper.create", vo);
+			
+		session.commit();
+		
+		}
+		
+		
+	}
+
 }

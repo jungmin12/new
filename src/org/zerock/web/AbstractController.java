@@ -2,6 +2,8 @@ package org.zerock.web;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.zerock.anno.RequestMapping;
+
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class AbstractController
@@ -66,12 +70,15 @@ public abstract class AbstractController extends HttpServlet {
 
 					Object obj = method.invoke(this, request, response);
 
-					if (obj == null) {
-						System.out.println("return type is void");
+					Class returnType = method.getReturnType();
+					
+					if (returnType == Void.class) {
+						System.out.println("return type is voi d");
 						jspPath += wantedPath + APP;
-					} else {
+					} else if(returnType == String.class) {
 
 						String str = (String) obj;
+								
 						if (str.startsWith("redirect:")) {
 							response.sendRedirect(str.substring(9));
 							return;
@@ -81,6 +88,24 @@ public abstract class AbstractController extends HttpServlet {
 
 						System.out.println("return type is string");
 						jspPath += wantedPath + "/" + (String) (obj) + APP;
+					}else {
+						
+						if(obj == null){
+							System.out.println("NULL DATA");
+							return;
+						}
+						
+						System.out.println("Make JSON Data");
+			
+						Gson gson = new Gson();
+						
+						String jsonStr= gson.toJson(obj);
+						
+						response.setContentType("application/json; charset=UTF-8"); 
+						response.getOutputStream().write(jsonStr.getBytes("UTF-8"));
+						
+						return;
+						
 					}
 
 					System.out.println(jspPath);

@@ -74,6 +74,17 @@
 		integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
 		crossorigin="anonymous"></script>
 	<script>
+	
+	var result = '${param.result}';
+
+	if(result == 's'){
+		alert("처리되었습니다.");
+		 window.history.replaceState('', '', "list?page=1");
+	}
+	</script>
+	
+	<script>
+	
 		$(document).ready(function() {
 
 			$("#sBtn").on("click", function(event) {

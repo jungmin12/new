@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <h1>�����ϼ̽��ϴ�.</h1>
+  <h1>success!</h1>
   
   <script
   src="https://code.jquery.com/jquery-2.2.4.js"
@@ -17,19 +17,15 @@
   <script>
   
   var msg = '${result}';
+	var rePage = "listSearch?page=${param.page}&sType=${param.sType}&keyword=${param.keyword}";
   
   if(msg == 'DEL_SUCCESS'){
-	  $("h1").html("���� 
-			����");
+	  $("h1").html("Delete Success");
 
-				window.history
-						.replaceState('', '',
-								"listSearch?page=${param.page}&sType=${param.sType}&keyword=${param.keyword}");
+				window.history.replaceState('', '',rePage);
 
-				setTimeout(
-						function() {
-
-							self.location = "listSearch?page=${param.page}&sType=${param.sType}&keyword=${param.keyword}";
+				setTimeout(function() {
+							self.location = rePage;
 						}, 2000);
 
 			}

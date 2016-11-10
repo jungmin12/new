@@ -2,17 +2,10 @@ package org.zerock.dao;
 
 import java.util.List;
 
+import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 
-public interface BoardDAO<BoardVO, Integer> {
-
-	public void create(BoardVO vo) throws Exception;
-
-	public BoardVO read(Integer bno) throws Exception;
-
-	public void update(BoardVO vo) throws Exception;
-
-	public void delete(Integer bno) throws Exception;
+public interface BoardDAO extends GenericDAO<BoardVO, Integer> {
 
 	public List<BoardVO> listPage(Integer page) throws Exception;
 

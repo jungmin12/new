@@ -1,5 +1,8 @@
 package org.zerock.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.zerock.anno.RequestMapping;
 import org.zerock.dao.BoardDAO;
 import org.zerock.dao.BoardDAOImpl;
+import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 
 /**
@@ -28,11 +32,12 @@ public class BoardController extends AbstractController {
 	@RequestMapping(value = "/delete", method = "POST")
 	public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		System.out.println("���� ó��................");
-
+		dao.delete(Integer.parseInt(request.getParameter("bno")));
+		System.out.println("DELETE SUCCESS...............");
+		
 		request.setAttribute("result", "DEL_SUCCESS");
 
-		// return "success";
+//		 return "success";
 
 		return "redirect:list?page=1&result=s";
 
@@ -75,9 +80,39 @@ public class BoardController extends AbstractController {
 	@RequestMapping(value = "/regist", method = "POST")
 	public String regPOST(HttpServletRequest request, HttpServletResponse response) {
 
+		BoardVO vo = new BoardVO();
+		
+		try {
+			
+			vo.setTitle(request.getParameter("title"));
+			vo.setContent(request.getParameter("content"));
+			vo.setWriter(request.getParameter("writer"));
+			dao.create(vo);
+			System.out.println(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		System.out.println("......................regPOST");
 
-		return "success";
+//		request.setAttribute("result", "REG_SUCCESS");
+
+//		 return "success";
+
+		return "redirect:list?page=1&result=s";
+		
+	}
+	
+	@RequestMapping("/test")
+	public Map<String, String> test(HttpServletRequest request, HttpServletResponse response) {
+		
+		Map<String, String> map = new HashMap();
+		                                                                                                                                                                                
+		map.put("id", "aaaa");
+		map.put("pw", "bbbb");
+		map.put("name", "한글한글");
+		
+		return map;
 	}
 
 }

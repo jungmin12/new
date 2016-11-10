@@ -10,6 +10,7 @@
   <ul>
   <li>${vo.bno}</li>
   <li>${vo.title}</li>
+  <li>${vo.writer}</li>
   <li>${vo.content}</li>
   
   </ul>
@@ -33,15 +34,11 @@
   <script>
   
   $("#listBtn").on("click", function(){
-	 
-	  $("#f1").submit();
-	  
+	 	  $("#f1").submit();  
   });
   
   $("#delBtn").on("click", function(){
-	  $("#f1").attr("action", "delete")
-	  .attr("method", "post")
-	  .submit();
+	  $("#f1").attr("action", "delete").attr("method", "post").submit();
   });
   
   
