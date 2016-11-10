@@ -6,41 +6,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
-<style>
-.list li {
-	list-style: none;
-}
-
+</head>
+<body>
+	<style>
 .paging li {
 	list-style: none;
 	float: left;
 	margin: 0.2em;
-	border: 1px dotted gray;
-	border-radius: 10px;
+	border: 1px solid black;
 }
 
 .paging .prev {
-	background-color: pink;
+	background-color: green;
 }
 
 .paging .next {
-	background-color: pink;
+	background-color: green;
 }
 </style>
-</head>
-<body>
+
 
 	<form method="get" id='f1'>
 		<input id='pageHidden' type='hidden' name='page' value=${param.page}>
 		<input id='bnoHidden' type='hidden' name='bno'> <select
-			id="sType" name="sType">
-			<option value='n' ${param.sType =="n"?"checked":"" }>--</option>
-			<option value='t' ${param.sType =="t"?"checked":""}>Title</option>
-			<option value='c ' ${param.sType =="c"?"checked":""}>Content</option>
-			<option value='w' ${param.sType =="w"?"checked":""}>Writer</option>
-		</select> <input type="text" name='keyword' id='keyword'>
-		<button id='sBtn'>Search</button>
+			id='sType' name='sType'>
+			<option value='n' ${param.sType =="n" ? "selected" : "" }>--</option>
+			<option value='t' ${param.sType =="t" ? "selected" : "" }>제목</option>
+			<option value='c' ${param.sType =="c" ? "selected" : "" }>내용</option>
+			<option value='w' ${param.sType =="w" ? "selected" : "" }>작성자</option>
+		</select> <input type='text' name='keyword' id='keyword'
+			value='${param.keyword }'>
+		<button id='sBtn'>검색</button>
+
 	</form>
+
 
 	<ul class="list">
 		<c:forEach items="${list}" var="vo">
@@ -48,6 +47,7 @@
 			</li>
 		</c:forEach>
 	</ul>
+
 
 	<ul class="paging">
 		<li class='prev'>${pm.prev == true ? pm.start - 1 : ''}</li>
@@ -60,16 +60,22 @@
 		<li class='next'>${pm.next == true ? pm.end + 1 : ''}</li>
 	</ul>
 
+
+
+
+	<!-- 여기 jquer 링크 넣어 -->
 	<script src="https://code.jquery.com/jquery-2.2.4.js"
 		integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
 		crossorigin="anonymous"></script>
 	<script>
 		$(document).ready(function() {
-			
-			${"#sBtn"}.on("click",function(event){
+
+			$("#sBtn").on("click", function(event) {
+
 				event.preventDefault();
-				$("#pageHidden").val(1);
+				$("#pageHidden").val(1); // 검색 눌렀을 때 pageHidden값은 무조건 1이여야해
 				$("#f1").submit();
+
 			});
 
 			$(".paging li").on("click", function(event) {
@@ -78,6 +84,7 @@
 
 				$("#pageHidden").val(obj.html());
 				$("#f1").submit();
+
 			});
 
 			$(".list li a").on("click", function(event) {
@@ -90,5 +97,6 @@
 
 		});
 	</script>
+
 </body>
 </html>

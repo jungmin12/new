@@ -9,8 +9,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
-import org.zerock.dao.MyBatisFactory;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 
 public class MybatisTest {
 
@@ -62,4 +62,20 @@ public class MybatisTest {
 		}
 
 	}
+	
+
+	@Test
+	public void testSearch() {
+		Criteria cri = new Criteria(1,"t","1000");
+		
+		SqlSession session = factory.openSession();
+		try {
+			List<BoardVO> now = session.selectList("org.zerock.dao.BoardMapper.listSearch", cri);
+			System.out.println(now);
+			
+		} finally {
+			session.close();
+		}
+	}
+	
 }

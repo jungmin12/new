@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.zerock.anno.RequestMapping;
 import org.zerock.dao.BoardDAO;
 import org.zerock.dao.BoardDAOImpl;
+import org.zerock.domain.Criteria;
 
 /**
  * Servlet implementation class HelloController
@@ -34,10 +35,25 @@ public class BoardController extends AbstractController {
 
 	}
 
-	@RequestMapping("/register")
-	public void regGET(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("BoardController register called");
+	@RequestMapping("/listSearch")
+	public String listSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("BoardController list called");
 
+		int page = Integer.parseInt(request.getParameter("page"));
+
+		Criteria cri = new Criteria(page, request.getParameter("sType"), request.getParameter("keyword"));
+
+		System.out.println("Page" + page);
+
+		request.setAttribute("list", dao.listSearch(cri));
+
+		// 토탈 카운트 가져온다
+		int total = dao.getCountSearch(cri);
+
+		request.setAttribute("pm", new PageMaker(page, total)); // PageMaker 자체를
+		// 넣어버린다.
+
+		return "list";
 	}
 
 	@RequestMapping(value = "/register", method = "POST")
@@ -53,14 +69,12 @@ public class BoardController extends AbstractController {
 		int page = Integer.parseInt(request.getParameter("page"));
 
 		request.setAttribute("list", page);
-			
-		System.out.println(page);
-		
-		int bno = Integer.parseInt(request.getParameter("bno"));
-		
-		request.setAttribute("vo", dao.read(bno));
 
-		
+		System.out.println(page);
+
+		int bno = Integer.parseInt(request.getParameter("bno"));
+
+		request.setAttribute("vo", dao.read(bno));
 
 	}
 

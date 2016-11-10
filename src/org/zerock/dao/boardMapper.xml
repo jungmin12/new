@@ -3,15 +3,51 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.dao.BoardMapper">
+
+	<sql id="search">
+
+		<if test="stype eq't'.toString()">
+			where title like #{keyword}
+		</if>
+		<if test="stype eq'c'.toString()">
+			where content like #{keyword}
+		</if>
+		<if test="stype eq'w'.toString()">
+			where writer like #{keyword}
+		</if>
+
+	</sql>
+
+
+
 	<select id="list" resultType="org.zerock.domain.BoardVO">
 		select * from tbl_board order by
 		bno desc limit #{num}, 10
 	</select>
 
+
+	<select id="listSearch" resultType="org.zerock.domain.BoardVO">
+		select * from tbl_board
+
+		<include refid="search"></include>
+
+		order by bno desc limit #{num}, 10
+	</select>
+
+
 	<select id="getCount" resultType="int">
 		select count(*) from tbl_board
 	</select>
-	<select id="view" resultType="org.zerock.domain.BoardVO">
-		select * from tbl_board where bno = #{num}
+
+	<select id="getCountSearch" resultType="int">
+		select count(*) from tbl_board
+		<include refid="search"></include>
 	</select>
+
+	<select id="view" resultType="org.zerock.domain.BoardVO">
+		select * from tbl_board where bno =
+		#{num}
+	</select>
+
+
 </mapper>
