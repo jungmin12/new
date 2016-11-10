@@ -77,5 +77,19 @@ public class MybatisTest {
 			session.close();
 		}
 	}
+
+	@Test
+	public void testDelete() {
+		BoardVO vo = new BoardVO();
+		
+		SqlSession session = factory.openSession();
+		try {
+			session.selectList("org.zerock.dao.BoardMapper.delete",1);
+			
+			
+		} finally {
+			session.close();
+		}
+	}
 	
 }

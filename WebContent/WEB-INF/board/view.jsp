@@ -15,6 +15,9 @@
 			$("#listBtn").on("click", function(event) {
 				$("#f1").submit(); //form태그
 			});
+			$("#delBtn").on("click", function(event) {
+				$("#f2").submit(); //form태그
+			});
 		});
 	</script>
 
@@ -26,13 +29,15 @@
 	</ul>
 	<button id='listBtn'>목록</button>
 	<button id='modBtn'>수정</button>
-	<button id='deltBtn'>삭제</button>
-
+	
+	
 	<form method="get" id='f1' action="listSearch">
-	<input type='hidden' name='page' value='${param.page}'> 
-	<input type='hidden' name='sType' value='${param.sType}'> 
-	<input type='hidden' name='keyword' value='${param.keyword}'> 
-	<input type='hidden' name='bno' value='${param.bno}'>
+		<input type='hidden' name='page' value='${param.page}'> <input
+			type='hidden' name='sType' value='${param.sType}'> <input
+			type='hidden' name='keyword' value='${param.keyword}'> <input
+			type='hidden' name='bno' value='${param.bno}'>
 	</form>
+	<form id='f2' action='list' method="post" name='bno' value='${param.bno}'> <button id='deltBtn'>삭제</button></form>
+
 </body>
 </html>

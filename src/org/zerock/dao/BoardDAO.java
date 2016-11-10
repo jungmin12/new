@@ -12,7 +12,7 @@ public interface BoardDAO<BoardVO, Integer> {
 
 	public void update(BoardVO vo) throws Exception;
 
-	public void delete(BoardVO vo) throws Exception;
+	public void delete(Integer bno) throws Exception;
 
 	public List<BoardVO> listPage(Integer page) throws Exception;
 

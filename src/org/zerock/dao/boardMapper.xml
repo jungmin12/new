@@ -17,6 +17,10 @@
 		</if>
 
 	</sql>
+		<select id="delete" resultType="org.zerock.domain.BoardVO">
+		delete from tbl_board where bno =
+		#{bno}
+	</select>
 
 	<select id="read" resultType="org.zerock.domain.BoardVO">
 		select * from tbl_board where bno =

@@ -16,7 +16,7 @@ public class BoardDAOImpl extends AbstractDAO<BoardVO, Integer> {
 
 	@Override
 	public BoardVO read(Integer bno) throws Exception {
-		BoardVO result = null;
+		BoardVO result = new BoardVO();
 		try (SqlSession session = MyBatisFactory.INSTANCE.factory.openSession();) {
 			result = session.selectOne("org.zerock.dao.BoardMapper.read", bno);
 		}
@@ -30,8 +30,10 @@ public class BoardDAOImpl extends AbstractDAO<BoardVO, Integer> {
 	}
 
 	@Override
-	public void delete(BoardVO vo) throws Exception {
-		// TODO Auto-generated method stub
+	public void delete(Integer bno) throws Exception {
+		try (SqlSession session = MyBatisFactory.INSTANCE.factory.openSession();) {
+			 session.selectOne("org.zerock.dao.BoardMapper.delete", bno);
+		}
 
 	}
 

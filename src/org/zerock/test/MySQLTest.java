@@ -21,8 +21,7 @@ public class MySQLTest {
 	@Test
 	public void testConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection(
-				"jdbc:mysql://192.168.0.19:3306/bit88?useSSL=false", "makemoney",
+		Connection con = DriverManager.getConnection("jdbc:mysql://192.168.0.19:3306/bit88?useSSL=false", "makemoney",
 				"makemoney");
 
 		System.out.println(con);
@@ -35,7 +34,7 @@ public class MySQLTest {
 		BoardVO vo = new BoardVO();
 		vo.setTitle("testTitle");
 		vo.setContent("testContent");
-		vo.setWriter("ÀÌ¼ö¿¬");
+		vo.setWriter("ï¿½Ì¼ï¿½ï¿½ï¿½");
 
 		dao.create(vo);
 
@@ -56,14 +55,6 @@ public class MySQLTest {
 		vo.setBno(13);
 
 		dao.update(vo);
-
-	}
-
-	@Test
-	public void testDelete() throws Exception {
-		BoardVO vo = new BoardVO();
-		vo.setBno(12);
-		dao.delete(vo);
 
 	}
 

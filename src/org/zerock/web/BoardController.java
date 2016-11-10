@@ -71,4 +71,13 @@ public class BoardController extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/list", method = "POST")
+	public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		int bno = Integer.parseInt(request.getParameter("bno"));
+		System.out.println(bno);
+		dao.delete(bno);
+
+	}
+
 }
