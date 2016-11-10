@@ -13,12 +13,12 @@ import org.zerock.anno.RequestMapping;
 /**
  * Servlet implementation class AbstractController
  */
-
 public abstract class AbstractController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String PRE = "/WEB-INF";
 	private static final String APP = ".jsp";
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -36,48 +36,60 @@ public abstract class AbstractController extends HttpServlet {
 
 		String path = request.getRequestURI();
 		String contextName = request.getContextPath();
-		
-//		System.out.println(contextName);
-//		System.out.println(path);
-		
-		String wantedPath = path.substring(contextName.length()); //path에서 contextName길이만큼 잘라내
-		System.out.println(wantedPath);
-		
-		String uri = request.getPathInfo();
-		String callMethod = request.getMethod(); // get or post
+		// System.out.println(path);
+		// System.out.println(contextName);
 
-		System.out.println("URI : " + uri);
-		
+		String wantedPath = path.substring(contextName.length());
+
+		System.out.println(wantedPath);
+
+		String uri = request.getPathInfo();
+		String callMethod = request.getMethod();
+
+		System.out.println("URI:" + uri);
+
 		String jspPath = PRE;
 
-
 		try {
-			Class clz = this.getClass(); // this는 항상 실행하는 녀석이다.
-			Method[] methods = clz.getDeclaredMethods(); // 모든 메소드를 불러온다.
+
+			Class clz = this.getClass();
+			Method[] methods = clz.getDeclaredMethods();
 
 			for (Method method : methods) {
 				RequestMapping mapping = method.getAnnotation(RequestMapping.class);
+
 				if (mapping == null) {
 					continue;
 				}
+
 				if (uri.equals(mapping.value()) && callMethod.equals(mapping.method())) {
+
 					Object obj = method.invoke(this, request, response);
-					
-					if(obj == null){
+
+					if (obj == null) {
 						System.out.println("return type is void");
-						jspPath += wantedPath+APP;
-					}else{
-						wantedPath = wantedPath.substring(0,wantedPath.lastIndexOf("/"));
-						System.out.println("return type is String");
+						jspPath += wantedPath + APP;
+					} else {
 
-						jspPath += wantedPath + "/" + (String)(obj)+APP;
+						String str = (String) obj;
+						if (str.startsWith("redirect:")) {
+							response.sendRedirect(str.substring(9));
+							return;
+						}
+
+						wantedPath = wantedPath.substring(0, wantedPath.lastIndexOf("/"));
+
+						System.out.println("return type is string");
+						jspPath += wantedPath + "/" + (String) (obj) + APP;
 					}
-					
-					System.out.println(jspPath);
-					request.getRequestDispatcher(jspPath).forward(request, response);
-					break;
 
+					System.out.println(jspPath);
+
+					request.getRequestDispatcher(jspPath).forward(request, response);
+
+					break;
 				}
+
 			}
 
 		} catch (Exception e) {
