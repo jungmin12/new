@@ -65,12 +65,6 @@ public class BoardController extends AbstractController {
 	@RequestMapping("/view")
 	public void view(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		int page = Integer.parseInt(request.getParameter("page"));
-
-		request.setAttribute("list", page);
-
-		System.out.println(page);
-
 		int bno = Integer.parseInt(request.getParameter("bno"));
 
 		request.setAttribute("vo", dao.read(bno));

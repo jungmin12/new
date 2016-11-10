@@ -12,10 +12,8 @@
 		crossorigin="anonymous"></script>
 	<script>
 		$(document).ready(function() {
-
-			$("button").on("click", function(event) {
-				$("#btn").val(${list});
-				$("#fm").attr("action", "list?page=").submit(); //form태그
+			$("#listBtn").on("click", function(event) {
+				$("#f1").submit(); //form태그
 			});
 		});
 	</script>
@@ -26,9 +24,15 @@
 		<li>${vo.content}</li>
 		<li>${vo.regdate}</li>
 	</ul>
-	<form method="get" id="fm">
-		<button id="btn" name="page">목록</button>
-	</form>
+	<button id='listBtn'>목록</button>
+	<button id='modBtn'>수정</button>
+	<button id='deltBtn'>삭제</button>
 
+	<form method="get" id='f1' action="listSearch">
+	<input type='hidden' name='page' value='${param.page}'> 
+	<input type='hidden' name='sType' value='${param.sType}'> 
+	<input type='hidden' name='keyword' value='${param.keyword}'> 
+	<input type='hidden' name='bno' value='${param.bno}'>
+	</form>
 </body>
 </html>

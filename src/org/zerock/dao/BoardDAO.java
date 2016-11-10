@@ -21,4 +21,6 @@ public interface BoardDAO<BoardVO, Integer> {
 	public int getCount(int page) throws Exception;
 
 	public int getCountSearch(Criteria cri) throws Exception;
+	
+	
 }

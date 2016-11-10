@@ -16,11 +16,11 @@ public class BoardDAOImpl extends AbstractDAO<BoardVO, Integer> {
 
 	@Override
 	public BoardVO read(Integer bno) throws Exception {
-		BoardVO vo = new BoardVO();
+		BoardVO result = null;
 		try (SqlSession session = MyBatisFactory.INSTANCE.factory.openSession();) {
-			vo = session.selectOne("org.zerock.dao.BoardMapper.view", bno);
+			result = session.selectOne("org.zerock.dao.BoardMapper.read", bno);
 		}
-		return vo;
+		return result;
 	}
 
 	@Override

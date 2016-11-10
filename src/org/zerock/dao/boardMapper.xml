@@ -18,13 +18,15 @@
 
 	</sql>
 
-
+	<select id="read" resultType="org.zerock.domain.BoardVO">
+		select * from tbl_board where bno =
+		#{bno}
+	</select>
 
 	<select id="list" resultType="org.zerock.domain.BoardVO">
 		select * from tbl_board order by
 		bno desc limit #{num}, 10
 	</select>
-
 
 	<select id="listSearch" resultType="org.zerock.domain.BoardVO">
 		select * from tbl_board
@@ -43,11 +45,5 @@
 		select count(*) from tbl_board
 		<include refid="search"></include>
 	</select>
-
-	<select id="view" resultType="org.zerock.domain.BoardVO">
-		select * from tbl_board where bno =
-		#{num}
-	</select>
-
 
 </mapper>
