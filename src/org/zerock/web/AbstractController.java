@@ -72,7 +72,7 @@ public abstract class AbstractController extends HttpServlet {
 
 					Class returnType = method.getReturnType();
 					
-					if (returnType == Void.class) {
+					if (returnType == void.class) {
 						System.out.println("return type is voi d");
 						jspPath += wantedPath + APP;
 					} else if(returnType == String.class) {

@@ -117,7 +117,17 @@ public class MybatisTest {
 		session.commit();
 		
 		}
+		                                                                                                          
 		
+	}
+	@Test
+	public void testRCreate2() {
+		ReplyVO vo = new ReplyVO();
+		vo.setBno(1376220);
+		vo.setReply("야호");	
+		vo.setReplyer("다은");
+		
+//		dao.create(vo);
 		
 	}
 

@@ -6,36 +6,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 
-public class BoardDAOImpl implements BoardDAO {
+public class BoardDAOImpl extends GenericDAOImpl<BoardVO, Integer> implements BoardDAO {
 
-	public void create(BoardVO vo) throws Exception {
-		try (SqlSession session = MyBatisFactory.INSTANCE.factory.openSession();) {
-			session.selectOne("org.zerock.dao.BoardMapper.create", vo);
-		}
+	//이것마저하기 싫으면 어노테이션...
+	public BoardDAOImpl(){
+		super("BoardMapper");
 	}
-
-	public BoardVO read(Integer bno) throws Exception {
-		BoardVO result = new BoardVO();
-		try (SqlSession session = MyBatisFactory.INSTANCE.factory.openSession();) {
-			result = session.selectOne("org.zerock.dao.BoardMapper.read", bno);
-		}
-		return result;
-	}
-
-	public void update(BoardVO vo) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	
-	public void delete(Integer bno) throws Exception {
-
-		try (SqlSession session = MyBatisFactory.INSTANCE.factory.openSession();) {
-			session.selectOne("org.zerock.dao.BoardMapper.delete", bno);
-		}
-
-	}
-
 	
 	public List<BoardVO> listPage(Integer page) throws Exception {
 		List<BoardVO> list = null;
